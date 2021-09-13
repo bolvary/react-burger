@@ -1,0 +1,37 @@
+.appHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 88px;
+    background-color: #1C1C21;
+}
+
+.mainMenu {
+    display: flex;
+    padding: 16px 20px;
+    margin-right: 112px;
+}
+
+.headerLink {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: #8585AD;
+    padding: 16px 20px;
+    width: 178px;
+    height: 56px;
+    text-decoration: none;
+}
+
+.activeLink {
+    color: #F2F2F3;
+}
+
+.loginMenu {
+    margin-left: 110px;
+}
+
+.headerLink svg {
+    margin-right: 9px;
+}

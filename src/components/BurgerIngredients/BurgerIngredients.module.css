@@ -1,0 +1,35 @@
+.burgerIngredients {
+    width: 600px;
+    height: 912px;
+    padding-left: 40px;
+    overflow-y: auto;
+}
+
+.tab {
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.customScroll {
+    scrollbar-color: #2F2F37 #8585AD;
+    scrollbar-width: thin;
+}
+
+.customScroll::-webkit-scrollbar {
+    width: 12px;
+}
+.customScroll::-webkit-scrollbar-track {
+    background: #2F2F37;
+}
+.customScroll::-webkit-scrollbar-thumb {
+    background: #8585AD;
+    border: 3px solid #2F2F37;
+    border-radius: 6px;
+}
