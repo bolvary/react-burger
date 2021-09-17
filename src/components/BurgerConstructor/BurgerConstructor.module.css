@@ -1,9 +1,7 @@
 .burgerConstructor {
     width: 600px;
-    height: 912px;
     padding-left: 40px;
     padding-top: 100px;
-    overflow-y: auto;
 }
 
 .tab {
@@ -15,14 +13,12 @@
     margin-bottom: 16px;
 }
 
-.ingridient {
-    display: flex;
-    align-items: baseline;
-    margin-left: -35px;
-}
-
 .ingridient svg {
     margin-right: 9px;
+}
+
+.fixedPosition {
+    margin-left: 40px;
 }
 
 .orderResult {
@@ -36,10 +32,11 @@
     display: flex;
     margin-top: 40px;
     justify-content: flex-end;
-    margin-right: 60px;
 }
 
 .customScroll {
+    height: 532px;
+    overflow-y: auto;
     scrollbar-color: #2F2F37 #8585AD;
     scrollbar-width: thin;
 }
