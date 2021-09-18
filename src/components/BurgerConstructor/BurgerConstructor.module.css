@@ -1,0 +1,54 @@
+.burgerConstructor {
+    width: 600px;
+    padding-left: 40px;
+    padding-top: 100px;
+}
+
+.tab {
+    display: flex;
+    margin-top: 20px;
+}
+
+.burgerConstructor div {
+    margin-bottom: 16px;
+}
+
+.ingridient svg {
+    margin-right: 9px;
+}
+
+.fixedPosition {
+    margin-left: 40px;
+}
+
+.orderResult {
+    display: flex;
+    align-items: baseline;
+    margin-top: 19px;
+    margin-right: 20px;
+}
+
+.orderFooter {
+    display: flex;
+    margin-top: 40px;
+    justify-content: flex-end;
+}
+
+.customScroll {
+    height: 532px;
+    overflow-y: auto;
+    scrollbar-color: #2F2F37 #8585AD;
+    scrollbar-width: thin;
+}
+
+.customScroll::-webkit-scrollbar {
+    width: 12px;
+}
+.customScroll::-webkit-scrollbar-track {
+    background: #2F2F37;
+}
+.customScroll::-webkit-scrollbar-thumb {
+    background: #8585AD;
+    border: 3px solid #2F2F37;
+    border-radius: 6px;
+}
