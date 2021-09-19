@@ -3,14 +3,30 @@ import burgerConstructorStyles from './BurgerConstructor.module.css';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { selectData } from './../../utils/selectData';
 import { DragIcon, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
+import Modal from '../Modal/Modal';
+import { FAKE_ORDER_ID } from '../../constants';
+import OrderDetails from '../OrderDetails/OrderDetails';
 
-function BurgerConstructor(props) {
+const BurgerConstructor = () => {
   const buns = selectData.filter(item => item.type === 'bun');
   const otherIngridients = selectData.filter(item => item.type !== 'bun');
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+
+  const handleClickOrderButton = () => {
+    setIsModalOpen(true);
+  }
+
+  const onClose = () => {
+    setIsModalOpen(false);
+  }
 
   return (
     <div className={burgerConstructorStyles.burgerConstructor}>
+      {isModalOpen && 
+        <Modal onClose={onClose}>
+          <OrderDetails orderId={FAKE_ORDER_ID}/>
+        </Modal>
+      }
       <div className={burgerConstructorStyles.fixedPosition}>
         <ConstructorElement
           type="top"
@@ -47,14 +63,10 @@ function BurgerConstructor(props) {
             <p className="text text_type_digits-medium">610</p>
             <CurrencyIcon type="primary" />
           </div>
-          <Button type="primary" size="medium">Оформить заказ</Button>
+          <Button type="primary" size="medium" onClick={()=>handleClickOrderButton()}>Оформить заказ</Button>
         </div>
     </div>
   );
 }
-
-BurgerConstructor.propTypes = {
-  productData: PropTypes.array
-};
 
 export default BurgerConstructor;

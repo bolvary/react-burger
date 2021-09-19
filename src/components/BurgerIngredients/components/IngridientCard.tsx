@@ -4,7 +4,7 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 
 function IngridientCard(props) {
   const { price, image, name } = props.data;
-  const select = props.select;
+  const select = props.select || '0';
 
   return (
     <div className={ingridientCardStyles.ingridientCard}>
