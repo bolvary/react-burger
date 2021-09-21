@@ -1,8 +1,11 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import ModalOverlay from './components/ModalOverlay';
 import modalStyles from './Modal.module.css';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+
+const modalRoot = document.getElementById("react-modals");
 
 const Modal = ({children, title="", onClose}) => { 
   const handleEsc =  React.useCallback((e) => {
@@ -16,8 +19,8 @@ const Modal = ({children, title="", onClose}) => {
     };
   }, [handleEsc]);
 
-  return(
-    <div>
+  return ReactDOM.createPortal(
+    (<div>
       <div className={modalStyles.modal}>
         <header className={modalStyles.modalHeader}>
           <h1>{title}</h1>
@@ -31,8 +34,8 @@ const Modal = ({children, title="", onClose}) => {
           {children}
       </div>
       <ModalOverlay clickOverlay={onClose} />
-    </div>
-  )
+    </div>), modalRoot
+  );
 }
 
 Modal.propTypes = {

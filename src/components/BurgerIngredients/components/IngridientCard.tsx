@@ -1,10 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ingridientCardStyles from './IngridientCard.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function IngridientCard(props) {
-  const { price, image, name } = props.data;
-  const select = props.select || '0';
+function IngridientCard({data, select}) {
+  const { price, image, name } = data;
 
   return (
     <div className={ingridientCardStyles.ingridientCard}>
@@ -20,5 +20,17 @@ function IngridientCard(props) {
     </div>
   );
 }
+
+IngridientCard.propTypes = {
+  data: PropTypes.shape({
+    calories: PropTypes.number,
+    proteins: PropTypes.number,
+    fat: PropTypes.number,
+    carbohydrates: PropTypes.number,
+    name: PropTypes.string,
+    image_large: PropTypes.string,
+  }).isRequired,
+  select: PropTypes.string,
+};
 
 export default IngridientCard;

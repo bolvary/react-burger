@@ -8,16 +8,17 @@ const App = () => {
   const [productData, setProductData] = useState([]);
 
   useEffect(() => {
-    try {
-      fetch(API_ADDRESS)
-        .then(response => {
-          return response.json()
-        })
-        .then(data => {
-          setProductData(data.data);
-        })
-        .catch(err => alert(`Ой! Что-то пошло не так! ${err}`));
-    } catch(error) {console.log('Возникла проблема с вашим fetch запросом: ', error.message)} 
+    fetch(API_ADDRESS)
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        return Promise.reject(response.status);
+      })
+      .then(data => {
+        setProductData(data.data);
+      })
+      .catch(err => alert(`Ой! Что-то пошло не так! ${err}`));
   }, []);
 
   return (
