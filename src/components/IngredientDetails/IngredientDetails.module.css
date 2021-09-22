@@ -1,0 +1,20 @@
+.ingredientDetails {
+    margin-left: auto;
+    margin-right: auto;
+    width: 30em;
+}
+
+.text {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.kbzu {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 40px;
+}
+
+.ingredient {
+    text-align: center;
+}
