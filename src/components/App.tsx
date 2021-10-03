@@ -1,34 +1,28 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { getProducts } from '../services/AllIngridients/actions';
 import AppHeader from './AppHeader/AppHeader';
 import BurgerConstructor from './BurgerConstructor/BurgerConstructor';
 import BurgerIngredients from './BurgerIngredients/BurgerIngredients';
-import { API_ADDRESS } from '../constants';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 const App = () => {
-  const [productData, setProductData] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch(API_ADDRESS)
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        return Promise.reject(response.status);
-      })
-      .then(data => {
-        setProductData(data.data);
-      })
-      .catch(err => alert(`Ой! Что-то пошло не так! ${err}`));
-  }, []);
+    dispatch(getProducts());
+  }, [dispatch]);
 
   return (
     <div className="App">
       <AppHeader />
+      <DndProvider backend={HTML5Backend}>
         <main className="mainContent">
-          <BurgerIngredients productData={productData} />
-          {/* Прокинуть данные потом */}
+          <BurgerIngredients />
           <BurgerConstructor /> 
         </main>
+      </DndProvider>
     </div>
   );
 }
