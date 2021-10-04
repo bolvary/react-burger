@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import burgerConstructorStyles from './BurgerConstructor.module.css';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -12,9 +12,12 @@ import { useDrop } from "react-dnd";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
-  const selectedIngredients = useSelector((state) => state['selectedIngredients'].selectedIngredients);
-  const buns = useSelector((state) => state['selectedIngredients'].buns);
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const {selectedIngredients, buns} = useSelector((state) => state['selectedIngredients']);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const isBunAdded = useMemo(() => {
+    return !(buns === undefined || buns === null);
+  }, [buns]);
 
   const [, dropTarget] = useDrop({
     accept: 'ingredients',
@@ -32,6 +35,7 @@ const BurgerConstructor = () => {
   });
 
   const handleClickOrderButton = () => {
+    if (!isBunAdded) return;
     const selectedIds = [...selectedIngredients.map((item) => item._id)];
     const bunId = buns._id || null;
     const allIdsForOrder = {

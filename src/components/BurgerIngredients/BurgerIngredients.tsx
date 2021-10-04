@@ -54,9 +54,6 @@ const inViewOptions = {
   }
 
   const onClose = () => {
-    dispatch({
-      type: REMOVE_INGREDIENT_DETAILS
-    });
     setIsModalOpen(false);
   }
 

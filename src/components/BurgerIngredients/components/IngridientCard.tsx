@@ -23,7 +23,7 @@ function IngridientCard({ data }) {
       if (!obj.hasOwnProperty(item._id)) {
         obj[item._id] = 0;
       }
-      obj[item._id]++;
+      item.type === 'bun' ? obj[item._id]=2 : obj[item._id]++;
       return obj;
     }, {});
  }, [selectedIngredients, buns]);
