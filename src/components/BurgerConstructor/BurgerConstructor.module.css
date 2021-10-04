@@ -9,6 +9,13 @@
     margin-top: 20px;
 }
 
+.emptyConstructor {
+    height: 150px;
+    position: relative;
+    text-align: center;
+    top: 5%;
+}
+
 .burgerConstructor div {
     margin-bottom: 16px;
 }

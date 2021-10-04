@@ -9,7 +9,7 @@ const modalRoot = document.getElementById("react-modals");
 
 const Modal = ({children, title="", onClose}) => { 
   const handleEsc =  React.useCallback((e) => {
-    if (e.key === 27 || e.key === 'Escape') { onClose() }
+    if (e.keyCode === 27 || e.key === 'Escape') { onClose() }
   }, [onClose]);
   
   React.useEffect(() => {

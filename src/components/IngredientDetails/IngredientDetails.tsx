@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import ingredientDetailsStyles from './IngredientDetails.module.css';
 
-const IngredientDetails = (data) => { 
-    const { image_large, name, calories, fat, proteins, carbohydrates } = data.data;
+const IngredientDetails = () => { 
+    const ingredientDetails = useSelector((state) => state['ingredientDetails'].ingredientDetails);
+
+    const { image_large, name, calories, fat, proteins, carbohydrates } = ingredientDetails;
     const kbzu = [
         {name: 'Калории,ккал', value: calories},
         {name: 'Белки, г', value: proteins},
@@ -26,16 +29,5 @@ const IngredientDetails = (data) => {
         </div>
     )
 }
-
-IngredientDetails.propTypes = {
-    data: PropTypes.shape({
-      calories: PropTypes.number,
-      proteins: PropTypes.number,
-      fat: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      name: PropTypes.string,
-      image_large: PropTypes.string,
-    }).isRequired,
-  };
 
 export default IngredientDetails;
