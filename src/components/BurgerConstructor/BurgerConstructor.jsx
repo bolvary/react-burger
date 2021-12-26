@@ -1,19 +1,29 @@
 import React, { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import burgerConstructorStyles from './BurgerConstructor.module.css';
+import { useDrop } from 'react-dnd';
+import { Redirect, useLocation } from 'react-router-dom';
+
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import SelectIngredient from './components/SelectIngredient';
 import { REMOVE_ORDER_ID, getOrder } from '../../services/Order/actions';
-import { ADD_BUNS, ADD_INGREDIENTS, CHANGE_INGREDIENTS } from '../../services/ContructorIngridients/actions';
-import { useDrop } from "react-dnd";
+import { addBuns, addIngredients } from '../../services/ContructorIngridients/actions';
+import { CHANGE_INGREDIENTS } from '../../services/ContructorIngridients/actions';
+import { isLoginUser } from '../../services/Auth/selectors';
+
+import burgerConstructorStyles from './BurgerConstructor.module.css';
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
-  const {selectedIngredients, buns} = useSelector((state) => state['selectedIngredients']);
+  const location = useLocation();
+
+  const { selectedIngredients, buns } = useSelector((state) => state['selectedIngredients']);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const userLogin =  useSelector(isLoginUser);
+  const [redirect, setRedirect] = useState(false);
 
   const isBunAdded = useMemo(() => {
     return !(buns === undefined || buns === null);
@@ -23,18 +33,17 @@ const BurgerConstructor = () => {
     accept: 'ingredients',
     drop(item) {
         item.data.type === 'bun' ?
-        dispatch({
-          type: ADD_BUNS,
-          payload: item.data
-        }) : 
-        dispatch({
-          type: ADD_INGREDIENTS,
-          payload: item.data
-        })
+        dispatch(addBuns(item.data)) : 
+        dispatch(addIngredients(item.data));
     },
   });
 
   const handleClickOrderButton = () => {
+    if (!userLogin) {
+      setRedirect(true);
+      return;
+    }
+
     if (!isBunAdded) return;
     const selectedIds = [...selectedIngredients.map((item) => item._id)];
     const bunId = buns._id || null;
@@ -70,6 +79,17 @@ const BurgerConstructor = () => {
       }
     });
  }
+
+  if (redirect) {
+    return (
+      <Redirect
+        to={{
+          pathname: '/login',
+          state: { from: location },
+        }}
+      />
+    );
+  }
 
   return (
     <div className={burgerConstructorStyles.burgerConstructor} ref={dropTarget}>

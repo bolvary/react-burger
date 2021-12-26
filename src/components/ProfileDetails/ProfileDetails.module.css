@@ -1,0 +1,31 @@
+.profileDetailsForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 24px;
+}
+
+.profileDetailsForm div {
+    width: 100%;
+    text-align: right;
+}
+
+.buttons {
+    width: 320px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    column-gap: 24px;
+}
+
+.link {
+    composes: text_type_main-default text_color_accent from global;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.link:hover {
+    opacity: .7;
+    cursor: pointer;
+}

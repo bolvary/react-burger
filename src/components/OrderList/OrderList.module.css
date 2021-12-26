@@ -1,0 +1,15 @@
+.orderListForm {
+    width: 478px;
+    height: inherit;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 24px;
+}
+
+.link {
+    composes: text_type_main-default text_color_accent from global;
+    text-decoration: none;
+}

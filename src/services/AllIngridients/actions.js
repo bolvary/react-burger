@@ -1,22 +1,35 @@
 import { API_ADDRESS } from '../../constants';
+export const STORE_NAME = 'ingredients';
 
 export const LOAD_INGREDIENTS = 'LOAD_INGREDIENTS';
+export const LOAD_INGREDIENTS_PROCESS = 'LOAD_INGREDIENTS_PROCESS';
+export const LOAD_INGREDIENTS_ERROR = 'LOAD_INGREDIENTS_ERROR';
 
 export function getProducts() {
-    return function (dispatch) {
-        fetch(API_ADDRESS)
-        .then(response => {
-        if (response.ok) {
-            return response.json();
-        }
-        return Promise.reject(response.status);
-        })
-        .then(data => {
-        dispatch({
-            type: LOAD_INGREDIENTS,
-            data: data.data,
-        });
-        })
-        .catch(err => alert(`Ой! Что-то пошло не так! ${err}`));
+    return (dispatch) => {
+        fetch(`${API_ADDRESS}/ingredients`)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                return Promise.reject(response.status);
+            })
+            .then(data => {
+                dispatch({
+                    type: LOAD_INGREDIENTS_PROCESS,
+                });
+                if (data && data.success) {
+                    dispatch({
+                        type: LOAD_INGREDIENTS,
+                        data: data.data,
+                    });
+                }
+            })
+            .catch((error) => {
+                console.log('error', error);
+                dispatch({
+                    type: LOAD_INGREDIENTS_ERROR,
+                });
+            });
     }
 }

@@ -1,15 +1,16 @@
 import React, { useRef } from 'react';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
+
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+
 import burgerConstructorStyles from '../BurgerConstructor.module.css';
 import { REMOVE_INGREDIENT } from '../../../services/ContructorIngridients/actions';
-import { useDispatch, useSelector } from 'react-redux';
 
 function SelectIngredient({ data, index, moveIng }) {
     const dispatch = useDispatch();
-    const { price, name, _id, image_mobile, uuid } = data;
+    const { price, name, image_mobile, uuid } = data;
     const selectedIngredients = useSelector((state) => state['selectedIngredients'].selectedIngredients);
     const ref = useRef(null);
 

@@ -1,5 +1,11 @@
-import { ADD_BUNS, ADD_INGREDIENTS, REMOVE_BUNS, REMOVE_INGREDIENT, CLEAR_ALL_INGREDIENTS, CHANGE_INGREDIENTS } from './actions';
-import { v4 as uuidv4 } from 'uuid';
+import { 
+    ADD_BUNS, 
+    ADD_INGREDIENTS, 
+    REMOVE_BUNS, 
+    REMOVE_INGREDIENT, 
+    CLEAR_ALL_INGREDIENTS, 
+    CHANGE_INGREDIENTS } 
+from './actions';
 
 const initialState = {
     buns: null,
@@ -29,7 +35,7 @@ const initialState = {
         case ADD_INGREDIENTS: {
             return {
                 ...state,
-                selectedIngredients: [...state.selectedIngredients, {...action.payload, uuid: uuidv4()}]
+                selectedIngredients: [...state.selectedIngredients, {...action.payload, uuid: action.uuid}]
             }
         }
         case REMOVE_INGREDIENT: {

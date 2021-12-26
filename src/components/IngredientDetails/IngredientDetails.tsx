@@ -1,10 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
+
+import Modal from '../Modal/Modal';
+import { getAllIngredients } from '../../services/AllIngridients/selectors';
+import { getIngredientDetails } from '../../services/IngredientDetails/selectors';
+
 import ingredientDetailsStyles from './IngredientDetails.module.css';
 
-const IngredientDetails = () => { 
-    const ingredientDetails = useSelector((state) => state['ingredientDetails'].ingredientDetails);
+const IngredientDetails = () => {
+    const { id } = useParams();
+    const productData = useSelector(getAllIngredients);
+    const ingredientDetails = useSelector(getIngredientDetails) || productData.find((product) => product._id === id);
+    const { state = {} } = useLocation();
+    const { modal } = state;
+    const history = useHistory();
+    const isModalOpen = modal;
 
     const { image_large, name, calories, fat, proteins, carbohydrates } = ingredientDetails;
     const kbzu = [
@@ -13,9 +24,9 @@ const IngredientDetails = () => {
         {name: 'Жиры, г', value: fat},
         {name: 'Углеводы, г', value: carbohydrates},
     ];
-
-    return(
+    const content = (
         <div className={ingredientDetailsStyles.ingredientDetails}>
+            {!isModalOpen && <p className={`${ingredientDetailsStyles.text} text text_type_main-medium`}>Детали ингредиента</p>}
             <img src={image_large} />
             <p className={`${ingredientDetailsStyles.text} text text_type_main-medium`}>{name}</p>
             <div className={ingredientDetailsStyles.kbzu}>
@@ -27,7 +38,19 @@ const IngredientDetails = () => {
                 ))}
             </div>
         </div>
+    );
+
+    return(
+        <>
+        {isModalOpen ? (
+          <Modal onClose={() => history.goBack()} title="Детали ингредиента">
+            {content}
+          </Modal>
+        ) : (
+          content
+        )}
+      </>
     )
-}
+};
 
 export default IngredientDetails;
