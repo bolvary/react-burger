@@ -1,0 +1,23 @@
+.errorForm {
+    width: 478px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 24px;
+}
+
+.link {
+    composes: text_type_main-default text_color_accent from global;
+    text-decoration: none;
+}
+
+.image {
+    width: 100%;
+    height: 300px;
+    background-image: url('../../images/404.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-left: auto;
+    margin-right: auto;
+}

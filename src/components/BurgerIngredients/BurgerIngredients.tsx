@@ -1,23 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
-import burgerIngredientsStyles from './BurgerIngredients.module.css';
+import { useHistory } from 'react-router-dom';
+
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+
+import { setIngredientDetails } from '../../services/IngredientDetails/actions';
 import IngridientCard from './components/IngridientCard';
-import IngredientDetails from '../IngredientDetails/IngredientDetails';
-import Modal from '../Modal/Modal';
-import { SET_INGREDIENT_DETAILS, REMOVE_INGREDIENT_DETAILS } from '../../services/IngredientDetails/actions';
+import { getAllIngredients } from '../../services/AllIngridients/selectors'
+import burgerIngredientsStyles from './BurgerIngredients.module.css';
 
 const  BurgerIngredients = () => {
   const dispatch = useDispatch();
-  const productData = useSelector((state) => state['ingredients'].ingredients);
+  const history = useHistory();
+  const productData = useSelector(getAllIngredients);
 
-  const [current, setCurrent] = React.useState('bun');
-  const buns = productData.filter(item => item.type === 'bun');
-  const sauces = productData.filter(item => item.type === 'sauce');
-  const mains = productData.filter(item => item.type === 'main');
-
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [current, setCurrent] = useState('bun');
+  const buns = useMemo(() => { return productData.filter(item => item.type === 'bun') }, [productData]);
+  const sauces = useMemo(() => { return productData.filter(item => item.type === 'sauce') }, [productData]);
+  const mains = useMemo(() => { return productData.filter(item => item.type === 'main') }, [productData]);
 
   const setTab = (tab) => {
     setCurrent(tab);
@@ -46,24 +47,15 @@ const inViewOptions = {
        }, [inViewBun, inViewMain, inViewSauce]);
 
   const handleClickIngredients = (item) => {
-    setIsModalOpen(true);
-    dispatch({
-      type: SET_INGREDIENT_DETAILS,
-      payload: item,
+    dispatch(setIngredientDetails(item));
+    history.push({
+      pathname: `/ingredients/${item._id}`,
+      state: { modal: true },
     });
-  }
-
-  const onClose = () => {
-    setIsModalOpen(false);
-  }
+  };
 
   return (
     <div className={burgerIngredientsStyles.burgerIngredients}>
-      {isModalOpen && 
-        <Modal onClose={onClose} title="Детали ингредиента">
-          <IngredientDetails />
-        </Modal>
-      }
       <p className="text text_type_main-large">Соберите бургер</p>
       <div className={burgerIngredientsStyles.tab}>
         <Tab value="bun" active={current === 'bun'} onClick={setTab}>Булки</Tab>

@@ -9,7 +9,6 @@
 .mainMenu {
     display: flex;
     padding: 16px 20px;
-    margin-right: 112px;
 }
 
 .headerLink {
@@ -29,7 +28,7 @@
 }
 
 .loginMenu {
-    margin-left: 110px;
+    padding: 16px 25px;
 }
 
 .headerLink svg {
