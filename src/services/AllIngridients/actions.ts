@@ -1,3 +1,4 @@
+import { Dispatch } from 'react';
 import { API_ADDRESS } from '../../constants';
 export const STORE_NAME = 'ingredients';
 
@@ -5,7 +6,7 @@ export const LOAD_INGREDIENTS = 'LOAD_INGREDIENTS';
 export const LOAD_INGREDIENTS_PROCESS = 'LOAD_INGREDIENTS_PROCESS';
 export const LOAD_INGREDIENTS_ERROR = 'LOAD_INGREDIENTS_ERROR';
 
-export function getProducts() {
+export function getProducts(): Dispatch<any> {
     return (dispatch) => {
         fetch(`${API_ADDRESS}/ingredients`)
             .then(response => {

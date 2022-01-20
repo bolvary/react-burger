@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import orderDetailsStyles from './OrderDetails.module.css';
 
-const OrderDetails = () => { 
+const OrderDetails: React.FC = () => { 
     const orderId = useSelector((state) => state['order'].orderId);
 
     return(

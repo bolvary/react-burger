@@ -1,6 +1,8 @@
 
 import { setCookie, getCookie } from '../../utils/coockie';
 import { API_AUTH, API_ADDRESS } from '../../constants';
+import { TLoginData, TUserData } from '../../utils/types';
+import { Dispatch } from 'react';
 export const STORE_NAME = 'auth';
 
 export const SET_USER_DATA = 'SET_USER_DATA';
@@ -35,7 +37,7 @@ export function checkResponse(response) {
     return response.json();
 }
 
-export function register({ name, email, password }) { 
+export function register({ name, email, password }: TUserData): Dispatch<any> { 
     return (dispatch) => {
         fetch(`${API_AUTH}/register`, {
             method: 'POST',
@@ -70,13 +72,13 @@ export function register({ name, email, password }) {
     }
 }
 
-export function updateUserData({ name, email, password }) {
+export function updateUserData({ name, email, password }: TUserData): Dispatch<any> {
     return (dispatch) => {
         fetch(`${API_AUTH}/user`, {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json;charset=utf-8',
-              "Authorization": getCookie('accessToken'),
+              'Authorization': getCookie('accessToken') || '',
             },
             body: JSON.stringify({ name, email, password }),
         })
@@ -98,7 +100,7 @@ export function updateUserData({ name, email, password }) {
     }
 }
 
-export function loginUser({ email, password }) {
+export function loginUser({ email, password }: TLoginData): Dispatch<any> {
     return (dispatch) => {
         fetch(`${API_AUTH}/login`, {
             method: 'POST',
@@ -127,7 +129,7 @@ export function loginUser({ email, password }) {
     }
 }
 
-export function forgotPassword({ email }) {
+export function forgotPassword({ email }: { email: string}): Dispatch<any> {
     return (dispatch) => {
         fetch(`${API_ADDRESS}/password-reset`, {
             method: 'POST',
@@ -153,7 +155,7 @@ export function forgotPassword({ email }) {
     }
 }
 
-export function resetPassword({ password, token }) {
+export function resetPassword({ password, token }: { password: string, token: string }): Dispatch<any> {
     return (dispatch) => {
         fetch(`${API_ADDRESS}/password-reset/reset`, {
             method: 'POST',
@@ -179,7 +181,7 @@ export function resetPassword({ password, token }) {
     }
 }
 
-export function logoutUser() { 
+export function logoutUser(): Dispatch<any> { 
     return (dispatch) => {
         fetch(`${API_AUTH}/logout`, {
             method: 'POST',
@@ -209,7 +211,7 @@ export function logoutUser() {
     }
 }
 
-export function token() { 
+export function token(): Dispatch<any> { 
     return (dispatch) => {
         fetch(`${API_AUTH}/token`, {
             method: 'POST',
@@ -238,13 +240,13 @@ export function token() {
     }
 }
 
-export function checkUser() { 
+export function checkUser(): Dispatch<any> { 
     return (dispatch) => {
         fetch(`${API_AUTH}/user`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json;charset=utf-8',
-              'Authorization': getCookie('accessToken'),
+              'Authorization': getCookie('accessToken') || '',
             }
         })
             .then(response => {

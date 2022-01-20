@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent, FormEvent, SyntheticEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
@@ -13,7 +13,7 @@ import { updateUserData } from '../../services/Auth/actions';
 
 import styles from './ProfileDetails.module.css';
 
-export function ProfileDetails() {
+const ProfileDetails: React.FC = () => {
     const dispatch = useDispatch();
     const name = useSelector(getUserName);
     const email = useSelector(getUserEmail);
@@ -30,17 +30,17 @@ export function ProfileDetails() {
         password: '',
       });
   
-    const onChange = (e) => {
-    setFormValue({ ...formValue, [e.target.name]: e.target.value });
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setFormValue({ ...formValue, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(updateUserData(formValue));
         setFormValue({ ...formValue, password: '' });
     };
 
-    const handleCancel = (e) => {
+    const handleCancel = (e: SyntheticEvent) => {
         e.preventDefault();
         setFormValue({ ...baseUser });
       };
@@ -78,3 +78,5 @@ export function ProfileDetails() {
         </form>
     );
 }
+
+export default ProfileDetails;

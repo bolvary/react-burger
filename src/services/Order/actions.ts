@@ -1,10 +1,11 @@
+import { Dispatch } from 'react';
 import { API_ORDER_ADDRESS } from '../../constants';
 import { CLEAR_ALL_INGREDIENTS } from '../ContructorIngridients/actions';
 
 export const SET_ORDER_ID = 'SET_ORDER_ID';
 export const REMOVE_ORDER_ID = 'REMOVE_ORDER_ID';
 
-export function getOrder(ids) {
+export function getOrder(ids: { ingredients: string[] }): Dispatch<any> {
     return function (dispatch) {
         fetch(API_ORDER_ADDRESS, {
             method: "POST",

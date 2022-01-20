@@ -1,11 +1,18 @@
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
+import React, { useMemo, FC } from 'react';
 import { useSelector } from 'react-redux';
-import ingridientCardStyles from './IngridientCard.module.css';
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag } from 'react-dnd';
 
-function IngridientCard({ data }) {
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+
+import { TIngridientData } from '../../../utils/types';
+
+import ingridientCardStyles from './IngridientCard.module.css';
+
+type TIngridientCard = {
+  data: TIngridientData;
+};
+
+const IngridientCard: FC<TIngridientCard> = ({ data }) => {
   const { price, image, name, _id } = data;
   const selectedIngredients = useSelector((state) => state['selectedIngredients'].selectedIngredients);
   const buns = useSelector((state) => state['selectedIngredients'].buns);
@@ -33,7 +40,7 @@ function IngridientCard({ data }) {
       <div className={ingridientCardStyles.counterOuter}>
         {selectMass[_id] && <div className={`${ingridientCardStyles.counter} text text_type_digits-default`}>{selectMass[_id]}</div>}
       </div>
-      <img src={image} />
+      <img alt='' src={image} />
       <div className={ingridientCardStyles.price}>
         <p className="text text_type_digits-default">{price}</p>
         <CurrencyIcon type="primary" />
@@ -42,16 +49,5 @@ function IngridientCard({ data }) {
     </div>
   );
 }
-
-IngridientCard.propTypes = {
-  data: PropTypes.shape({
-    calories: PropTypes.number,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    name: PropTypes.string,
-    image_large: PropTypes.string,
-  }).isRequired,
-};
 
 export default IngridientCard;

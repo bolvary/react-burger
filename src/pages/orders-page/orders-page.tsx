@@ -1,16 +1,14 @@
 import React from "react";
 import styles from "./orders-page.module.css";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export function OrdersPage() {
+const OrdersPage: React.FC = () => {
 
     return (
         <form className={styles.ordersForm}>
             <span className="text_type_main-medium">Ведутся работы - зайдите позже</span>
             <Link
-                to={{
-                pathname: "/",
-                }}
+                to={{ pathname: "/" }}
                 className={styles.link}
             >
                 Вернуться на главную
@@ -18,3 +16,5 @@ export function OrdersPage() {
         </form>
       );
 }
+
+export default OrdersPage;

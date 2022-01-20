@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter as Router, Switch, Route, useHistory, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
@@ -23,9 +23,8 @@ import {
 
 import appStyles from './App.module.css';
 
-const App = () => {
+const App: React.FC = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
   const { ingredientsIsLoaded, ingredientsLoadedError } = useSelector(state => state['ingredients']);
 
   useEffect(() => {

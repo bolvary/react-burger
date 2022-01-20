@@ -1,3 +1,4 @@
+import { TIngridientData } from '../../utils/types';
 import { 
     ADD_BUNS, 
     ADD_INGREDIENTS, 
@@ -7,7 +8,12 @@ import {
     CHANGE_INGREDIENTS } 
 from './actions';
 
-const initialState = {
+type TSelectedIngredients = {
+    buns: TIngridientData & { uuid?: number } | null,
+    selectedIngredients: TIngridientData & { uuid?: number }[] | never[]
+}
+
+const initialState: TSelectedIngredients = {
     buns: null,
     selectedIngredients: [],
   };

@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 
@@ -13,11 +13,11 @@ import { forgotPassword } from '../../services/Auth/actions';
 
 import styles from './forgot-password.module.css';
 
-export function ForgotPasswordPage() {
+const ForgotPasswordPage: React.FC = () => {
   const dispatch = useDispatch();
   const checkIsEmailSent = useSelector(isEmailSent);
 
-  const [formValue, setFormValue] = useState({
+  const [formValue, setFormValue] = useState<{ email: string }>({
     email: '',
   });
 
@@ -31,11 +31,11 @@ export function ForgotPasswordPage() {
     );
   }
 
-  const onChange = (e) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(forgotPassword(formValue));
   };
@@ -46,7 +46,6 @@ export function ForgotPasswordPage() {
         <EmailInput 
           name="email"
           value={formValue.email}
-          placeholder={'Укажите e-mail'}
           onChange={onChange}
         />
         <Button>Восстановить</Button>
@@ -65,4 +64,6 @@ export function ForgotPasswordPage() {
         </div>
   </form>
   );
-}
+};
+
+export default ForgotPasswordPage;

@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { isLoginUser } from '../../services/Auth/selectors';
 
-const ProtectedRoute = ({ children, ...rest }) => {
+type TProtectedRoute = {
+  children: ReactNode;
+  path: string;
+  exact?: boolean;
+}
+
+const ProtectedRoute: React.FC<TProtectedRoute> = ({ children, ...rest }) => {
   const userLogin =  useSelector(isLoginUser);
 
   return (

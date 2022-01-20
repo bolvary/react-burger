@@ -15,8 +15,9 @@ import { CHANGE_INGREDIENTS } from '../../services/ContructorIngridients/actions
 import { isLoginUser } from '../../services/Auth/selectors';
 
 import burgerConstructorStyles from './BurgerConstructor.module.css';
+import { TIngridientData } from '../../utils/types';
 
-const BurgerConstructor = () => {
+const BurgerConstructor: React.FC = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -31,7 +32,7 @@ const BurgerConstructor = () => {
 
   const [, dropTarget] = useDrop({
     accept: 'ingredients',
-    drop(item) {
+    drop(item: { data: TIngridientData }) {
         item.data.type === 'bun' ?
         dispatch(addBuns(item.data)) : 
         dispatch(addIngredients(item.data));

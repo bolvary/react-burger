@@ -3,15 +3,13 @@ import { Link} from 'react-router-dom';
 
 import styles from './error-page.module.css';
 
-export function ErrorPage() {
+const ErrorPage: React.FC = () => {
     return (
         <form className={styles.errorForm}>
             <span className="text_type_main-medium">К сожалению такой страницы нет</span>
             <div className={styles.image}/>
             <Link
-                to={{
-                pathname: "/",
-                }}
+                to={{ pathname: "/" }}
                 className={styles.link}
             >
                 Вернуться на главную
@@ -19,3 +17,5 @@ export function ErrorPage() {
         </form>
       );
 }
+
+export default ErrorPage;
