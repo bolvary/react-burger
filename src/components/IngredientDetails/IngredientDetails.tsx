@@ -5,17 +5,25 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
 import Modal from '../Modal/Modal';
 import { getAllIngredients } from '../../services/AllIngridients/selectors';
 import { getIngredientDetails } from '../../services/IngredientDetails/selectors';
+import { Location } from 'history';
 
 import ingredientDetailsStyles from './IngredientDetails.module.css';
 
-const IngredientDetails = () => {
-    const { id } = useParams();
+type TParams = {
+  id: string
+}
+
+type TLocation = {
+  modal?: Location
+}
+
+const IngredientDetails: React.FC = () => {
+    const { id } = useParams<TParams>();
     const productData = useSelector(getAllIngredients);
     const ingredientDetails = useSelector(getIngredientDetails) || productData.find((product) => product._id === id);
-    const { state = {} } = useLocation();
-    const { modal } = state;
+    const { state } = useLocation<TLocation>();
+    const isModalOpen = state && state.modal;
     const history = useHistory();
-    const isModalOpen = modal;
 
     const { image_large, name, calories, fat, proteins, carbohydrates } = ingredientDetails;
     const kbzu = [
@@ -27,7 +35,7 @@ const IngredientDetails = () => {
     const content = (
         <div className={ingredientDetailsStyles.ingredientDetails}>
             {!isModalOpen && <p className={`${ingredientDetailsStyles.text} text text_type_main-medium`}>Детали ингредиента</p>}
-            <img src={image_large} />
+            <img alt='' src={image_large} />
             <p className={`${ingredientDetailsStyles.text} text text_type_main-medium`}>{name}</p>
             <div className={ingredientDetailsStyles.kbzu}>
                 {kbzu.map((item, index) => (
@@ -37,7 +45,7 @@ const IngredientDetails = () => {
                     </div>
                 ))}
             </div>
-        </div>
+        </div> 
     );
 
     return(

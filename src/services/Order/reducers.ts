@@ -1,6 +1,10 @@
 import { SET_ORDER_ID, REMOVE_ORDER_ID } from './actions';
 
-const initialState = {
+type TOrderState = {
+  orderId: number | null;
+}
+
+const initialState: TOrderState = {
   orderId: null,
 };
 

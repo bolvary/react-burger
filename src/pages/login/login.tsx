@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect, useLocation } from 'react-router-dom';
 
@@ -10,24 +10,32 @@ import {
 
 import { loginUser } from '../../services/Auth/actions';
 import { isLoginUser } from '../../services/Auth/selectors';
+import { TLoginData } from '../../utils/types';
 
 import styles from './login.module.css';
 
-export function LoginPage() {
+type TLocation = {
+  hash: string;
+  pathname: string;
+  search: string;
+  state: any;
+}
+
+const LoginPage: React.FC = () => {
   const dispatch = useDispatch();
   const userLogin =  useSelector(isLoginUser);
-  const location = useLocation();
+  const location: TLocation = useLocation();
 
-  const [formValue, setFormValue] = useState({
+  const [formValue, setFormValue] = useState<TLoginData>({
     email: "",
     password: "",
   });
 
-  const onChange = (e) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(loginUser(formValue));
   };
@@ -80,3 +88,5 @@ export function LoginPage() {
     </form>
   );
 }
+
+export default LoginPage;

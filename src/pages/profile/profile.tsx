@@ -2,15 +2,15 @@ import React from 'react';
 import { NavLink, Switch, Route, Redirect, useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { ProfileDetails } from '../../components/ProfileDetails/ProfileDetails';
-import { OrdersList } from '../../components/OrderList/OrderList';
+import ProfileDetails from '../../components/ProfileDetails/ProfileDetails';
+import OrdersList from '../../components/OrderList/OrderList';
 
 import { isLoginUser } from '../../services/Auth/selectors';
 import { logoutUser } from '../../services/Auth/actions';
 
 import styles from './profile.module.css';
 
-export function ProfilePage() {
+const ProfilePage: React.FC = () => {
     const { path } = useRouteMatch();
     const dispatch = useDispatch();
     const getIsLoginUser = useSelector(isLoginUser);
@@ -43,7 +43,6 @@ export function ProfilePage() {
                         История заказов
                     </NavLink>
                     <div 
-                        to='/profile' 
                         className={`${styles.link}`}
                         onClick={(() => onClickLogout())}
                     >
@@ -69,3 +68,5 @@ export function ProfilePage() {
         </div>
         );
 }
+
+export default ProfilePage;

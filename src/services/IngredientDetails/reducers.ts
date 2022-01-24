@@ -1,6 +1,11 @@
+import { TIngridientData } from '../../utils/types';
 import { SET_INGREDIENT_DETAILS, REMOVE_INGREDIENT_DETAILS } from './actions';
 
-const initialState = {
+type TIngredientDetails = {
+  ingredientDetails: TIngridientData | null,
+}
+
+const initialState: TIngredientDetails = {
   ingredientDetails: null,
 };
 

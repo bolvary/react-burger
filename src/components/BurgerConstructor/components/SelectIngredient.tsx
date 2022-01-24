@@ -1,22 +1,38 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useDrag, useDrop } from 'react-dnd';
+import { useDrag, useDrop, DropTargetMonitor } from 'react-dnd';
+import { XYCoord } from "dnd-core";
 
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import burgerConstructorStyles from '../BurgerConstructor.module.css';
 import { REMOVE_INGREDIENT } from '../../../services/ContructorIngridients/actions';
+import { TIngridientData } from '../../../utils/types';
 
-function SelectIngredient({ data, index, moveIng }) {
+type TSelectIngredient = {
+    data: TIngridientData & { uuid: number},
+    index: number,
+    moveIng: (dragIndex: number, hoverIndex: number) => void,
+};
+
+type DragItem = {
+    index: number;
+    uuid?: number
+  }
+
+const SelectIngredient: React.FC<TSelectIngredient> = ({ data, index, moveIng }) => {
     const dispatch = useDispatch();
     const { price, name, image_mobile, uuid } = data;
     const selectedIngredients = useSelector((state) => state['selectedIngredients'].selectedIngredients);
-    const ref = useRef(null);
+    const ref = useRef<HTMLDivElement>(null);
 
     const [, dropRef] = useDrop({
         accept: "selectIngredient",
-        hover: (item, monitor) => {
+        hover: (item: DragItem, monitor: DropTargetMonitor) => {
+            if (!ref.current) {
+                return;
+            }
             const hoverIndex = index;
 
             const dragCard = selectedIngredients.find(el => el.uuid === item.uuid);
@@ -31,7 +47,7 @@ function SelectIngredient({ data, index, moveIng }) {
             // Determine mouse position
             const clientOffset = monitor.getClientOffset();
             // Get pixels to the top
-            const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+            const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
             // Only perform the move when the mouse has crossed half of the items height
             // When dragging downwards, only move when the cursor is below 50%
             // When dragging upwards, only move when the cursor is above 50%

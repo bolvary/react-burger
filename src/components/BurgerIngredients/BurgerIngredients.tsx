@@ -9,8 +9,9 @@ import { setIngredientDetails } from '../../services/IngredientDetails/actions';
 import IngridientCard from './components/IngridientCard';
 import { getAllIngredients } from '../../services/AllIngridients/selectors'
 import burgerIngredientsStyles from './BurgerIngredients.module.css';
+import { TIngridientData } from '../../utils/types';
 
-const  BurgerIngredients = () => {
+const BurgerIngredients: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const productData = useSelector(getAllIngredients);
@@ -46,7 +47,7 @@ const inViewOptions = {
         }
        }, [inViewBun, inViewMain, inViewSauce]);
 
-  const handleClickIngredients = (item) => {
+  const handleClickIngredients = (item: TIngridientData) => {
     dispatch(setIngredientDetails(item));
     history.push({
       pathname: `/ingredients/${item._id}`,

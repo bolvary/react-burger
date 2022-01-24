@@ -26,7 +26,21 @@ import {
 
 } from './actions';
 
-const initialStateProfile = {
+type TAuth = {
+    loginUser: boolean,
+    loginError: boolean,
+    registerSending: boolean,
+    registerError: boolean,
+    updateUserDataError: boolean,
+    name: string,
+    email: string,
+    errorMessage: string,
+    emailSent: boolean,
+    passwordReseted: boolean,
+    resetPasswordInProgress: boolean,
+}
+
+const initialStateProfile: TAuth = {
     loginUser: false,
     loginError: false,
     registerSending: false,

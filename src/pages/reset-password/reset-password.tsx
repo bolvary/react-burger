@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 
@@ -14,13 +14,13 @@ import { resetPassword } from '../../services/Auth/actions';
 
 import styles from './reset-password.module.css';
 
-export function ResetPasswordPage() {
+const ResetPasswordPage: React.FC = () => {
   const dispatch = useDispatch();
   const checkIsPasswordReseted = useSelector(isPasswordReseted);
   const userLogin = useSelector(isLoginUser);
   const resetPasswordInProgress = useSelector(isResetPasswordInProgress);
 
-  const [formValue, setFormValue] = useState({
+  const [formValue, setFormValue] = useState<{ password: string, token: string }>({
     password: '',
     token: '',
   });
@@ -38,11 +38,11 @@ export function ResetPasswordPage() {
     return <Redirect to="/" />;
   }
 
-  const onChange = (e) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(resetPassword(formValue));
   };
@@ -52,11 +52,12 @@ export function ResetPasswordPage() {
         <span className="text_type_main-medium">Восстановление пароля</span>
         <PasswordInput
           name="password"
-          placeholder="Введите новый пароль"
+          value={formValue.password}
           onChange={onChange}
         />
         <Input
           name="token"
+          value={formValue.token}
           type="text"
           placeholder="Введите код из письма"
           onChange={onChange}
@@ -78,3 +79,5 @@ export function ResetPasswordPage() {
   </form>
   );
 }
+
+export default ResetPasswordPage;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 
@@ -14,21 +14,25 @@ import { isLoginUser } from '../../services/Auth/selectors';
 
 import styles from './register.module.css';
 
-export function RegisterPage() {
+const RegisterPage: React.FC = () => {
     const dispatch = useDispatch();
     const userLogin =  useSelector(isLoginUser);
 
-    const [formValue, setFormValue] = useState({
+    const [formValue, setFormValue] = useState<{
+      name: string,
+      email: string,
+      password: string
+    }>({
       name: "",
       email: "",
       password: "",
     });
 
-    const onChange = (e) => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
       setFormValue({ ...formValue, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       dispatch(register(formValue));
     };
@@ -69,3 +73,5 @@ export function RegisterPage() {
         </form>
       );
 }
+
+export default RegisterPage;

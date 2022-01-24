@@ -1,10 +1,17 @@
+import { TIngridientData } from '../../utils/types';
 import {
     LOAD_INGREDIENTS,
     LOAD_INGREDIENTS_PROCESS,
     LOAD_INGREDIENTS_ERROR,
 } from './actions';
 
-const initialState = {
+type TAllIngredient = {
+    ingredients: TIngridientData[],
+    ingredientsIsLoaded: boolean,
+    ingredientsLoadedError: boolean,
+}
+
+const initialState: TAllIngredient = {
     ingredients: [],
     ingredientsIsLoaded: false,
     ingredientsLoadedError: false,
