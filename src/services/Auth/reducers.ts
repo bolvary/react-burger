@@ -23,10 +23,11 @@ import {
 
     USER_ERROR,
     USER_SUCCESS,
+    TAuthActions,
 
 } from './actions';
 
-type TAuth = {
+export type TAuth = { 
     loginUser: boolean,
     loginError: boolean,
     registerSending: boolean,
@@ -54,7 +55,7 @@ const initialStateProfile: TAuth = {
     resetPasswordInProgress: false,
 };
   
-export const auth = (state = initialStateProfile, action) => {
+export const auth = (state = initialStateProfile, action: TAuthActions) => {
 
     switch (action.type) {
 
@@ -73,6 +74,7 @@ export const auth = (state = initialStateProfile, action) => {
 
         case USER_SUCCESS: {
             return {
+                ...state,
                 loginUser: true,
                 name: action.payload.name,
                 email: action.payload.email,

@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent, SyntheticEvent } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from '../../hooks/hooks';
 
 import {
     Button,

@@ -5,12 +5,14 @@ import {
     REMOVE_BUNS, 
     REMOVE_INGREDIENT, 
     CLEAR_ALL_INGREDIENTS, 
-    CHANGE_INGREDIENTS } 
+    CHANGE_INGREDIENTS, 
+    TConstructorIngridientsActions
+} 
 from './actions';
 
 type TSelectedIngredients = {
     buns: TIngridientData & { uuid?: number } | null,
-    selectedIngredients: TIngridientData & { uuid?: number }[] | never[]
+    selectedIngredients: TIngridientData[]
 }
 
 const initialState: TSelectedIngredients = {
@@ -18,11 +20,11 @@ const initialState: TSelectedIngredients = {
     selectedIngredients: [],
   };
 
-  export const selectedIngredientsReducer = (state = initialState, action) => {
+  export const selectedIngredientsReducer = (state = initialState, action: TConstructorIngridientsActions): TSelectedIngredients => {
     switch (action.type) {
         case CLEAR_ALL_INGREDIENTS: {
         return {
-            bun: null,
+            buns: null,
             selectedIngredients: [],
         };
         }

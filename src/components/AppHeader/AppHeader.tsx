@@ -1,10 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Link, useRouteMatch } from 'react-router-dom';
 
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { isLoginUser, getUserName } from '../../services/Auth/selectors';
+import { useSelector } from '../../hooks/hooks';
 
 import appHeaderStyles from './AppHeader.module.css';
 
@@ -14,20 +14,21 @@ const AppHeader: React.FC = () => {
 
   const profileActive = !!useRouteMatch({ path: '/profile' });
   const constructorActive = !!useRouteMatch({ path: '/', exact: true });
+  const feedActive = !!useRouteMatch({ path: '/feed' });
   const burgerType = constructorActive ? 'primary' : 'secondary';
   const profileIconType = profileActive ? 'primary' : 'secondary';
 
   return (
     <div className={appHeaderStyles.appHeader}>
       <nav className={appHeaderStyles.mainMenu}>
-        <a href="/" className={`${appHeaderStyles.headerLink} ${constructorActive && appHeaderStyles.activeLink}`}>
+        <Link to="/" className={`${appHeaderStyles.headerLink} ${constructorActive && appHeaderStyles.activeLink}`}>
           <BurgerIcon type={burgerType}/>
           <p className="text text_type_main-default">Конструктор</p>
-        </a> 
-        <a href="#" className={appHeaderStyles.headerLink}>
+        </Link> 
+        <Link to="/feed" className={`${appHeaderStyles.headerLink} ${feedActive && appHeaderStyles.activeLink}`}>
           <ListIcon type="secondary" />
           <p className="text text_type_main-default">Лента заказов</p>
-        </a> 
+        </Link> 
       </nav>
       <Link to='/'>    
           <Logo />

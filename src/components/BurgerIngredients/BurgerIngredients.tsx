@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from '../../hooks/hooks';
 import { useInView } from 'react-intersection-observer';
 import { useHistory } from 'react-router-dom';
 

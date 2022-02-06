@@ -5,17 +5,9 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
 import Modal from '../Modal/Modal';
 import { getAllIngredients } from '../../services/AllIngridients/selectors';
 import { getIngredientDetails } from '../../services/IngredientDetails/selectors';
-import { Location } from 'history';
 
 import ingredientDetailsStyles from './IngredientDetails.module.css';
-
-type TParams = {
-  id: string
-}
-
-type TLocation = {
-  modal?: Location
-}
+import { TLocation, TParams } from '../../utils/types';
 
 const IngredientDetails: React.FC = () => {
     const { id } = useParams<TParams>();

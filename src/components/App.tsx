@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -19,14 +18,17 @@ import {
   ResetPasswordPage,
   ProfilePage,
   ErrorPage,
+  FeedPage,
 } from '../pages';
 
 import appStyles from './App.module.css';
+import OrderDetails from './OrderList/components/OrderDetails/OrderDetails';
+import { useDispatch, useSelector } from '../hooks/hooks';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
   const { ingredientsIsLoaded, ingredientsLoadedError } = useSelector(state => state['ingredients']);
-
+  
   useEffect(() => {
     dispatch(getProducts());
     dispatch(checkUser());
@@ -70,6 +72,15 @@ const App: React.FC = () => {
                 </ProtectedRoute>
                 <Route path="/ingredients/:id" exact>
                   <IngredientDetails/>
+                </Route>
+                <ProtectedRoute path="/profile/orders/:id" exact>
+                  <OrderDetails />
+                </ProtectedRoute>
+                <Route path="/feed" exact>
+                  <FeedPage />
+                </Route>
+                <Route path="/feed/:id" exact>
+                  <OrderDetails />
                 </Route>
                 <Route>
                   <ErrorPage/>
