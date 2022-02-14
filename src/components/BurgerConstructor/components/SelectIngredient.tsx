@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../../hooks/hooks';
 import { useDrag, useDrop, DropTargetMonitor } from 'react-dnd';
 import { XYCoord } from "dnd-core";
 
@@ -11,7 +11,7 @@ import { REMOVE_INGREDIENT } from '../../../services/ContructorIngridients/actio
 import { TIngridientData } from '../../../utils/types';
 
 type TSelectIngredient = {
-    data: TIngridientData & { uuid: number},
+    data: TIngridientData,
     index: number,
     moveIng: (dragIndex: number, hoverIndex: number) => void,
 };
@@ -36,6 +36,7 @@ const SelectIngredient: React.FC<TSelectIngredient> = ({ data, index, moveIng })
             const hoverIndex = index;
 
             const dragCard = selectedIngredients.find(el => el.uuid === item.uuid);
+            // @ts-ignore
             const dragIndex = selectedIngredients.indexOf(dragCard);
 
             if (dragIndex === hoverIndex) return;

@@ -1,11 +1,11 @@
 import React, { useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import { Redirect, useLocation } from 'react-router-dom';
 
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
+import { useDispatch, useSelector } from '../../hooks/hooks';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import SelectIngredient from './components/SelectIngredient';
@@ -46,8 +46,8 @@ const BurgerConstructor: React.FC = () => {
     }
 
     if (!isBunAdded) return;
-    const selectedIds = [...selectedIngredients.map((item) => item._id)];
-    const bunId = buns._id || null;
+    const selectedIds = [...selectedIngredients.map((item: TIngridientData) => item._id)];
+    const bunId = buns?._id;
     const allIdsForOrder = {
       ingredients: [...selectedIds, bunId],
     };
@@ -64,7 +64,7 @@ const BurgerConstructor: React.FC = () => {
   }
 
   const totalPrice = useMemo(()=> {
-    const ingSum = selectedIngredients ? selectedIngredients.reduce((total, current) => {
+    const ingSum = selectedIngredients ? selectedIngredients.reduce((total: number, current: TIngridientData) => {
       return total + current.price;
     }, 0) : 0;
     const bunsSum = buns ? buns.price*2 : 0;

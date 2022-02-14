@@ -4,6 +4,7 @@ import { ingredientDetailsReducer } from './IngredientDetails/reducers';
 import { orderReducer } from './Order/reducers';
 import { selectedIngredientsReducer } from './ContructorIngridients/reducers';
 import { auth } from './Auth/reducers';
+import { websocketReducer } from './Websocket/reducer';
 
 export const rootReducer = combineReducers({
     ingredients: allIngredientReducer,
@@ -11,4 +12,5 @@ export const rootReducer = combineReducers({
     order: orderReducer,
     selectedIngredients: selectedIngredientsReducer,
     auth: auth,
+    websocket: websocketReducer,
 });

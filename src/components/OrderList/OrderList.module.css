@@ -1,15 +1,38 @@
-.orderListForm {
-    width: 478px;
-    height: inherit;
-    margin: 0 auto;
+.orderList {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    row-gap: 24px;
+    width: fit-content;
 }
 
 .link {
     composes: text_type_main-default text_color_accent from global;
     text-decoration: none;
+}
+
+.customScroll {
+    height: 912px;
+    overflow-y: auto;
+    scrollbar-color: #2F2F37 #8585AD;
+    scrollbar-width: thin;
+}
+
+.customScroll::-webkit-scrollbar {
+    width: 12px;
+}
+.customScroll::-webkit-scrollbar-track {
+    background: #2F2F37;
+}
+.customScroll::-webkit-scrollbar-thumb {
+    background: #8585AD;
+    border: 3px solid #2F2F37;
+    border-radius: 6px;
+}
+
+.cards {
+    width: 608px;
+    display: flex;
+    gap: 16px; 
+    flex-direction: column;
+    padding: 0;
+    margin-top: 0;
 }
