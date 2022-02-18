@@ -5,6 +5,7 @@ import { Link, Redirect, useLocation } from 'react-router-dom';
 import {
   Button,
   EmailInput,
+  Input,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -47,7 +48,7 @@ const LoginPage: React.FC = () => {
   return (
     <form className={styles.loginForm} onSubmit={handleSubmit}>
       <span className="text_type_main-medium">Вход</span>
-      <EmailInput 
+      <Input 
         name="email" 
         onChange={onChange} 
         value={formValue.email}
@@ -57,7 +58,9 @@ const LoginPage: React.FC = () => {
         onChange={onChange}
         value={formValue.password}
       />
-      <Button>Войти</Button>
+      <div className="login_button">
+        <Button>Войти</Button>
+      </div>
       <div className="mt-9">
         <span className="text_type_main-default text_color_inactive mr-2">
           Вы - новый пользователь?
