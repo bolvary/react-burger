@@ -27,7 +27,7 @@ const Modal: FC<TModal> = ({children, title="", onClose}) => {
 
   return createPortal(
     (<div>
-      <div className={modalStyles.modal}>
+      <div id="modal" className={modalStyles.modal}>
         <header className={modalStyles.modalHeader}>
           <h1>{title}</h1>
           <button

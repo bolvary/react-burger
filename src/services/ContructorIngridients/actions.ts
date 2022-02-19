@@ -16,7 +16,7 @@ export interface IAddBunsAction {
 export interface IAddIngredientsAction {
     readonly type: typeof ADD_INGREDIENTS;
     readonly payload: TIngridientData;
-    readonly uuid: number;
+    readonly uuid: any;
 }
 
 export interface IClearAllIngredientsAction {

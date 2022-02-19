@@ -10,7 +10,7 @@ import {
 const initialState = {
     wsConnected: false,
     ordersInfo: []
-  };
+};
 
 export const websocketReducer = (state = initialState, action: TWebsocketActions) => {
     switch (action.type) {
